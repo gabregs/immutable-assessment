@@ -8,13 +8,13 @@ const fetch = (...args) =>
   const sheet = new Sheet("1_OB7KIX-RYc7ZMspJ0QSaWnElfFCgVLfDDTOvXHl6DU")
   await sheet.load()
 
-  // var newDate = new Date()
-  // newDate.setDate(newDate.getDate() - 1)
-  // var globalTodayDate = newDate.toISOString().slice(0, 10)
-  // newDate.setDate(newDate.getDate() - 1)
-  // var globalYdayDate = newDate.toISOString().slice(0, 10)
-  var globalTodayDate = "2022-08-25"
-  var globalYdayDate = "2022-08-24"
+  var newDate = new Date()
+  newDate.setDate(newDate.getDate() - 1)
+  var globalTodayDate = newDate.toISOString().slice(0, 10)
+  newDate.setDate(newDate.getDate() - 1)
+  var globalYdayDate = newDate.toISOString().slice(0, 10)
+//   var globalTodayDate = "2022-08-25"
+//   var globalYdayDate = "2022-08-24"
 
   console.log(globalTodayDate)
   console.log(globalYdayDate)
