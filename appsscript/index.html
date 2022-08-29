@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <?!= include("css") ?>
+    <title>Metrics: CryptoSlam & Immutascan</title>
+  </head>
+  <body>
+    <main>
+      <div class="container">
+        <h3>Immutable Metrics</h3>
+        <h5><?!= dateToday ?></h5>
+
+        <div class="row">
+          <p>Immutablscan (IS) vs CryptoSlam (CS)</p>
+          <table class="centered striped">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Sales</th>
+                <th>Percent Change</th>
+                <th>Trades</th>
+                <th>Buyers</th>
+              </tr>
+            </thead>
+
+            <tbody id="trackerTable">
+              <?!= imx1a ?>
+            </tbody>
+          </table>
+        </div>
+
+        <hr />
+
+        <div class="row">
+          <p>Top 10 Blockchains</p>
+          <table class="centered striped">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Chain</th>
+                <th>Sales</th>
+                <th>Percent Change</th>
+                <th>Trades</th>
+                <th>Buyers</th>
+              </tr>
+            </thead>
+
+            <tbody id="trackerTable">
+              <?!= imx1b ?>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="container" style="margin-top: 50px">
+        <h3>Project Metrics</h3>
+        <h5><?!= dateToday ?></h5>
+
+        <div class="row">
+          <p>24 hrs Metrics</p>
+          <table class="centered striped">
+            <thead>
+              <tr>
+                <th>Project</th>
+                <th>IS Sales</th>
+                <th>IS Trades</th>
+                <th>IS Buyers</th>
+                <th>CS Sales</th>
+                <th>CS Trades</th>
+                <th>CS Buyers</th>
+                <th>Diff Sales</th>
+                <th>Diff Trades</th>
+                <th>Diff Buyers</th>
+              </tr>
+            </thead>
+
+            <tbody id="trackerTable">
+              <?!= projects24hrs ?>
+            </tbody>
+          </table>
+        </div>
+
+        <hr />
+
+        <div class="row">
+          <p>7 Day Metrics</p>
+          <table class="centered striped">
+            <thead>
+              <tr>
+                <th>Project</th>
+                <th>IS Sales</th>
+                <th>IS Trades</th>
+                <th>IS Buyers</th>
+                <th>CS Sales</th>
+                <th>CS Trades</th>
+                <th>CS Buyers</th>
+                <th>Diff Sales</th>
+                <th>Diff Trades</th>
+              </tr>
+            </thead>
+
+            <tbody id="trackerTable">
+              <?!= projects7days ?>
+            </tbody>
+          </table>
+        </div>
+
+        <hr />
+
+        <div class="row">
+          <p>30 Day Metrics</p>
+          <table class="centered striped">
+            <thead>
+              <tr>
+                <th>Project</th>
+                <th>IS Sales</th>
+                <th>IS Trades</th>
+                <th>IS Buyers</th>
+                <th>CS Sales</th>
+                <th>CS Trades</th>
+                <th>CS Buyers</th>
+                <th>Diff Sales</th>
+                <th>Diff Trades</th>
+              </tr>
+            </thead>
+
+            <tbody id="trackerTable">
+              <?!= projects30days ?>
+            </tbody>
+          </table>
+        </div>
+
+        <hr />
+
+        <div class="row">
+          <p>Total Metrics</p>
+          <table class="centered striped">
+            <thead>
+              <tr>
+                <th>Project</th>
+                <th>IS Sales</th>
+                <th>IS Trades</th>
+                <th>IS Buyers</th>
+                <th>CS Sales</th>
+                <th>CS Trades</th>
+                <th>CS Buyers</th>
+                <th>Diff Sales</th>
+                <th>Diff Trades</th>
+                <th>Diff Buyers</th>
+              </tr>
+            </thead>
+
+            <tbody id="trackerTable">
+              <?!= projectsTotal ?>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <?!= include("js") ?>
+  </body>
+</html>
