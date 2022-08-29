@@ -9,7 +9,6 @@ const fetch = (...args) =>
   await sheet.load()
 
   var newDate = new Date()
-  newDate.setDate(newDate.getDate() - 1)
   var globalTodayDate = newDate.toISOString().slice(0, 10)
   newDate.setDate(newDate.getDate() - 1)
   var globalYdayDate = newDate.toISOString().slice(0, 10)
@@ -75,19 +74,19 @@ const fetch = (...args) =>
     [
       {
         date: globalTodayDate,
-        platform: "CryptoSlam",
-        sales: todayCSSales,
-        percent_change: percentChangeCS,
-        trades: todayCSTXns,
-        buyers: todayCSBuyers,
-      },
-      {
-        date: globalTodayDate,
         platform: "Immutascan",
         sales: todayISSales,
         percent_change: percentChangeIS,
         trades: todayISTrades,
         buyers: "",
+      },
+      {
+        date: globalTodayDate,
+        platform: "CryptoSlam",
+        sales: todayCSSales,
+        percent_change: percentChangeCS,
+        trades: todayCSTXns,
+        buyers: todayCSBuyers,
       },
     ],
     0
