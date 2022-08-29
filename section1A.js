@@ -89,7 +89,6 @@ const fetch = (...args) =>
         trades: todayISTrades,
         buyers: "",
       },
-      // diff_sales: todayISSales - todayCSSales,
     ],
     0
   )
