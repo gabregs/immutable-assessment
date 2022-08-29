@@ -8,109 +8,86 @@ const fetch = (...args) =>
   const sheet = new Sheet("1_OB7KIX-RYc7ZMspJ0QSaWnElfFCgVLfDDTOvXHl6DU")
   await sheet.load()
 
-  // var newDate = new Date()
-  // var globalTodayDate = newDate.toISOString().slice(0, 10)
-  // newDate.setDate(newDate.getDate() - 1)
-  // var globalYdayDate = newDate.toISOString().slice(0, 10)
-  var globalTodayDate = "2022-08-26"
-  var globalYdayDate = "2022-08-25"
+  var newDate = new Date()
+  var globalTodayDate = newDate.toISOString().slice(0, 10)
+  newDate.setDate(newDate.getDate() - 1)
+  var globalYdayDate = newDate.toISOString().slice(0, 10)
+//   var globalTodayDate = "2022-08-26"
+//   var globalYdayDate = "2022-08-25"
 
   console.log(globalTodayDate)
   console.log(globalYdayDate)
 
-  // var remaining = 1
-  // var cursorCode = ""
-  // var uniqueTokenAddresses = []
+  // Get projects traded yesterday
+  var remaining = 1
+  var cursorCode = ""
+  var uniqueTokenAddresses = []
 
-  // while (remaining != 0) {
-  //   var reqIMXTrades = await fetch(
-  //     `https://api.x.immutable.com/v1/trades?page_size=200&order_by=transaction_id&direction=desc&min_timestamp=${globalYdayDate}T00%3A00%3A00Z&max_timestamp=${globalTodayDate}T00%3A00%3A00Z&cursor=` +
-  //       cursorCode,
-  //     {
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       method: "GET",
-  //     }
-  //   )
+  while (remaining != 0) {
+    var reqIMXTrades = await fetch(
+      `https://api.x.immutable.com/v1/trades?page_size=200&order_by=transaction_id&direction=desc&min_timestamp=${globalYdayDate}T00%3A00%3A00Z&max_timestamp=${globalTodayDate}T00%3A00%3A00Z&cursor=` +
+        cursorCode,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "GET",
+      }
+    )
 
-  //   var resIMXTrades = await reqIMXTrades.json()
+    var resIMXTrades = await reqIMXTrades.json()
 
-  //   var results = resIMXTrades.result
+    var results = resIMXTrades.result
 
-  //   for (let i = 0; i < results.length; i++) {
-  //     var result = results[i]
-  //     var nftTokenAddress = result.b.token_address
-  //     if (uniqueTokenAddresses.includes(nftTokenAddress) == false) {
-  //       uniqueTokenAddresses.push(nftTokenAddress)
-  //     }
-  //   }
+    for (let i = 0; i < results.length; i++) {
+      var result = results[i]
+      var nftTokenAddress = result.b.token_address
+      if (uniqueTokenAddresses.includes(nftTokenAddress) == false) {
+        uniqueTokenAddresses.push(nftTokenAddress)
+      }
+    }
 
-  //   remaining = resIMXTrades.remaining
-  //   cursorCode = resIMXTrades.cursor
-  // }
-  // console.log(`${uniqueTokenAddresses.length} unique projects traded today`)
+    remaining = resIMXTrades.remaining
+    cursorCode = resIMXTrades.cursor
+  }
+  console.log(`${uniqueTokenAddresses.length} unique projects traded today`)
 
-  // var projectDetails = []
+  var projectDetails = []
 
-  // for (var j = 0; j < uniqueTokenAddresses.length; j++) {
-  //   var projectTokenAddress = uniqueTokenAddresses[j]
-  //   var reqProjectDetails = await fetch(
-  //     `https://api.x.immutable.com/v1/collections/` + projectTokenAddress,
-  //     {
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       method: "GET",
-  //     }
-  //   )
+  for (var j = 0; j < uniqueTokenAddresses.length; j++) {
+    var projectTokenAddress = uniqueTokenAddresses[j]
+    var reqProjectDetails = await fetch(
+      `https://api.x.immutable.com/v1/collections/` + projectTokenAddress,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "GET",
+      }
+    )
 
-  //   var resProjectDetails = await reqProjectDetails.json()
+    var resProjectDetails = await reqProjectDetails.json()
 
-  //   var projectNameIS = resProjectDetails.name
-  //   var projectNameCS =
-  //     projectNameIS == "Gods Unchained"
-  //       ? "Gods Unchained Immutable"
-  //       : projectNameIS
+    var projectNameIS = resProjectDetails.name
+    var projectNameCS =
+      projectNameIS == "Gods Unchained"
+        ? "Gods Unchained Immutable"
+        : projectNameIS
 
-  //   projectDetails.push({
-  //     date: globalYdayDate,
-  //     immutascan: projectNameIS,
-  //     token_address: projectTokenAddress,
-  //     cryptoslam: projectNameCS,
-  //     chain_id: projectNameCS.toLowerCase().replaceAll(" ", "-"),
-  //   })
-  // }
-
-  // sheet.addRows(projectDetails, 154986296)
-
-  var projectDetails = [
-    // {
-    //   date: globalYdayDate,
-    //   immutascan: "Gods Unchained",
-    //   token_address: "0xacb3c6a43d15b907e8433077b6d38ae40936fe2c",
-    //   cryptoslam: "Gods Unchained Immutable",
-    //   chain_id: "gods-unchained-immutable",
-    // },
-    // {
-    //   date: globalYdayDate,
-    //   immutascan: "ImmutaSwap.io",
-    //   token_address: "0x49bc6ef4daf9441571ed1578ca8407ca2a333785",
-    //   cryptoslam: "ImmutaSwap.io",
-    //   chain_id: "immutaswap.io",
-    // },
-    {
+    projectDetails.push({
       date: globalYdayDate,
-      immutascan: "Hro",
-      token_address: "0x8cb332602d2f614b570c7631202e5bf4bb93f3f6",
-      cryptoslam: "Hro",
-      chain_id: "hro",
-    },
-  ]
+      immutascan: projectNameIS,
+      token_address: projectTokenAddress,
+      cryptoslam: projectNameCS,
+      chain_id: projectNameCS.toLowerCase().replaceAll(" ", "-"),
+    })
+  }
+
+  sheet.addRows(projectDetails, 154986296)
 
   var allMetrics = []
 
-  for (var k = 0; k < projectDetails.length; k++) {
+  for (var k = 0; k < 3; k++) { //projectDetails.length
     var details = projectDetails[k]
 
     var reqISProject = await fetch(
@@ -128,12 +105,13 @@ const fetch = (...args) =>
     var resISProject = await reqISProject.json()
 
     var metricsIS = resISProject.data.getMetricsAll.items
-
+    
+    // Get Metrics for Immutascan 24hrs
     var metricsIS24 = metricsIS.find((day) => day.type == globalYdayDate)
     var metricsIS24Sales = metricsIS24.trade_volume_usd
     var metricsIS24Trades = metricsIS24.trade_count
 
-    // How to get unique buyers for IS
+    // Get Unique Buyers from Immutascan 24hrs
     var remainingBuyers = 1
     var buyerCursorCode = ""
     var uniqueBuyers = []
@@ -167,6 +145,7 @@ const fetch = (...args) =>
 
     var metricsIS24Buyers = uniqueBuyers.length
 
+    // Get Metrics for Immutascan 7days
     var metricsIS7 = metricsIS.slice(2, 9)
     var metricsIS7Sales = 0
     var metricsIS7Trades = 0
@@ -175,6 +154,7 @@ const fetch = (...args) =>
       metricsIS7Trades += day.trade_count
     })
 
+    // Get Metrics for Immutascan 30days
     var metricsIS30 = metricsIS.slice(2, 32)
     var metricsIS30Sales = 0
     var metricsIS30Trades = 0
@@ -183,6 +163,7 @@ const fetch = (...args) =>
       metricsIS30Trades += day.trade_count
     })
 
+    // Get Metrics for Immutascan Total
     var metricsISALL = metricsIS.find((record) => record.type == "total")
     var metricsISALLSales = metricsISALL.trade_volume_usd
     var metricsISALLTrades = metricsISALL.trade_count
@@ -224,7 +205,8 @@ const fetch = (...args) =>
           .reverse()
       )
     }
-
+    
+    // Get Metrics for Immutascan 24hrs
     var metricsCS24 = metricsCS.find(
       (day) => day.salesDateEST == globalYdayDate + "T00:00:00"
     ).dailySummary.summary
@@ -232,6 +214,7 @@ const fetch = (...args) =>
     var metricsCS24Trades = metricsCS24.totalTransactions
     var metricsCS24Buyers = metricsCS24.uniqueBuyers
 
+    // Get Metrics for Immutascan 7days
     var metricsCS7 = metricsCS.slice(0, 7)
     var metricsCS7Sales = 0
     var metricsCS7Trades = 0
@@ -243,6 +226,7 @@ const fetch = (...args) =>
       metricsCS7Buyers += summary.uniqueBuyers
     })
 
+    // Get Metrics for Immutascan 30days
     var metricsCS30 = metricsCS
     var metricsCS30Sales = 0
     var metricsCS30Trades = 0
@@ -254,6 +238,7 @@ const fetch = (...args) =>
       metricsCS30Buyers += summary.uniqueBuyers
     })
 
+    // Get Metrics for Immutascan Total
     var metricsCSALL = resCSProject
     var metricsCSALLSales = 0
     var metricsCSALLTrades = 0
@@ -309,79 +294,3 @@ const fetch = (...args) =>
 
   sheet.addRows(allMetrics, 1643147692)
 })()
-
-// sheet.addRows(allMetrics, 273149048)
-// allMetrics.push(
-//   {
-//     date: globalYdayDate,
-//     project: details.immutascan,
-//     range: "24hrs",
-//     platform: "Immutascan",
-//     sales: metricsIS24Sales,
-//     trades: metricsIS24Trades,
-//     buyers: metricsIS24Buyers,
-//   },
-//   {
-//     date: globalYdayDate,
-//     project: details.immutascan,
-//     range: "24hrs",
-//     platform: "CryptoSlam",
-//     sales: metricsCS24Sales,
-//     trades: metricsCS24Trades,
-//     buyers: metricsCS24Buyers,
-//   },
-//   {
-//     date: globalYdayDate,
-//     project: details.immutascan,
-//     range: "7days",
-//     platform: "Immutascan",
-//     sales: metricsIS7Sales,
-//     trades: metricsIS7Trades,
-//     // buyers: metricsIS7Buyers,
-//   },
-//   {
-//     date: globalYdayDate,
-//     project: details.immutascan,
-//     range: "7days",
-//     platform: "CryptoSlam",
-//     sales: metricsCS7Sales,
-//     trades: metricsCS7Trades,
-//     buyers: metricsCS7Buyers,
-//   },
-//   {
-//     date: globalYdayDate,
-//     project: details.immutascan,
-//     range: "30days",
-//     platform: "Immutascan",
-//     sales: metricsIS30Sales,
-//     trades: metricsIS30Trades,
-//     // buyers: metricsIS30Buyers,
-//   },
-//   {
-//     date: globalYdayDate,
-//     project: details.immutascan,
-//     range: "30days",
-//     platform: "CryptoSlam",
-//     sales: metricsCS30Sales,
-//     trades: metricsCS30Trades,
-//     buyers: metricsCS30Buyers,
-//   },
-//   {
-//     date: globalYdayDate,
-//     project: details.immutascan,
-//     range: "Total",
-//     platform: "Immutascan",
-//     sales: metricsISALLSales,
-//     trades: metricsISALLTrades,
-//     buyers: metricsISALLBuyers,
-//   },
-//   {
-//     date: globalYdayDate,
-//     project: details.immutascan,
-//     range: "Total",
-//     platform: "CryptoSlam",
-//     sales: metricsCSALLSales,
-//     trades: metricsCSALLTrades,
-//     buyers: metricsCSALLBuyers,
-//   }
-// )
